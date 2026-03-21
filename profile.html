@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - Musico</title>
+  <link rel="stylesheet" href="profile.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+<body>
+  <header>
+    <h1>🎵 My Profile</h1>
+    <a href="Music.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+  </header>
+
+  <main class="profile-container">
+    <div class="profile-card glass-effect">
+      <div class="profile-image">
+        <img id="profilePic" src="profile-pic.png" alt="User Profile">
+        <input type="file" id="uploadPic" accept="image/*" hidden>
+      </div>
+
+      <h2 id="userName">Ankit Gupta</h2>
+      <p class="email"><i class="fa-solid fa-envelope"></i> <span id="userEmail">ankitgupta37937@gmail.com</span></p>
+
+      <button id="editBtn" class="edit-btn"><i class="fa-solid fa-pen-to-square"></i> Edit Profile</button>
+      <button id="saveBtn" class="save-btn" style="display:none;"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+    </div>
+
+    <section class="account-details glass-effect">
+      <h3><i class="fa-solid fa-circle-user"></i> Account Details</h3>
+      <ul>
+        <li><i class="fa-solid fa-calendar"></i> Joined: <span>Jan 2025</span></li>
+        <li><i class="fa-solid fa-music"></i> Total Songs: <span>25</span></li>
+        <li><i class="fa-solid fa-headphones"></i> Favorite Genre: <span>Pop</span></li>
+        <li><i class="fa-solid fa-star"></i> Premium Status: <span>Free User</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Musico | Designed by Ankit Gupta</p>
+  </footer>
+
+  <script src="profile.js"></script>
+</body>
+</html>

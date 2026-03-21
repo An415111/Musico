@@ -1,0 +1,156 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: #0d0d0d;
+    color: white;
+}
+
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #00ff6a;
+    letter-spacing: 1px;
+}
+
+/* NAV BUTTONS */
+.nav-buttons .btn {
+    margin-left: 15px;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    background: transparent;
+    border: 1px solid #00ff6a;
+    color: #00ff6a;
+
+    transition: 0.3s ease;
+}
+
+.nav-buttons .btn:hover {
+    background: #00ff6a;
+    color: black;
+    transform: scale(1.05);
+}
+
+/* HERO SECTION */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 60px;
+    font-weight: 800;
+    color: #00ff6a;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    margin-top: 10px;
+    font-size: 20px;
+    max-width: 750px;
+    opacity: 0.8;
+}
+
+/* Explore Button */
+.explore-btn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    background: #00ff6a;
+    color: black;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.explore-btn:hover {
+    transform: scale(1.1);
+    background: #1db954;
+}
+
+
+
+
+
+
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1db954;
+  padding: 15px 30px;
+}
+
+
+.logo {
+  font-size: 60px;
+  font-weight: bold;
+  color: black;
+}
+
+.logo p{
+  font-size: 20px;
+
+}
+
+
+
+
+
+/* NAV BUTTONS */
+.nav-buttons .btn {
+    margin-left: 15px;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    
+
+    font-size: 15px;
+    font-weight: 600;
+
+    background: transparent;
+    border: 1px solid black;
+    color: black;
+
+    transition: 0.3s ease;
+}
+
+.nav-buttons .btn:hover {
+    background: #00ff6a;
+    color: black;
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

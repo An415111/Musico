@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Collection</title>
+    <link rel="stylesheet" href="Sonu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="music-row">
+        <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266098/dil_dooba_rnzvnr.jpg" alt="Song 5" />
+            <h4>dil dooba</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772250753/Dil_Dooba_Khakee_128_Kbps_kzhrke.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i>Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266127/shukran_allah_uvir9e.jpg" alt="Song 5" />
+            <h4>Shukran allah</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772251588/Shukran_Allah_Kurbaan_128_Kbps_m1g0er.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266103/kal_ho_etbysc.jpg" alt="Song 5" />
+            <h4>kal ho na ho</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772250856/Kal_Ho_Naa_Ho_Shankar_Ehsaan_Loy_128_Kbps_eu00gj.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266094/chori_kiya_ljp3dg.jpg" alt="Song 5" />
+            <h4>chori kiya re</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772250647/Chori_Kiya_Re_Jiya_Male_Dabangg_128_Kbps_wmd8ea.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266134/tumse_milke_daoqu1.jpg" alt="Song 5" />
+            <h4>Tumse milke</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772251706/Tumse_Milke_Dil_Ka_Main_Hoon_Na_128_Kbps_q79hlv.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266110/Main_agar_k6jhcr.jpg" alt="Song 5" />
+            <h4>Main Agar Kahoon</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772250966/Main_Agar_Kahoon_Om_Shanti_Om_128_Kbps_n3qens.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266116/pardesiyan_pexxht.jpg" alt="Song 5" />
+            <h4>Pardesiya</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772251278/Pardesiya_Param_Sundari_128_Kbps_lg65pj.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772287609/aaja_soniye_svvnyd.jpg" alt="Song 5" />
+            <h4>aaja_soniye</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772288009/Aaja_Soniye_Mujhse_Shaadi_Karogi_128_Kbps_ahiv8z.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772287607/ghar_kab_aaoge_gzqhyz.jpg" alt="Song 5" />
+            <h4>ghar kab aaoge(border 2)</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772288042/Ghar_Kab_Aaoge_Border_2_128_Kbps_auowqa.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772287606/manjogi_zdgpon.jpg" alt="Song 5" />
+            <h4>Manjogi</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772287857/Manjogi_Bhabiji_Ghar_Par_Hain_128_Kbps_htu5kz.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772287606/aa_gale_lag_jaa_zjoarw.jpg" alt="Song 5" />
+            <h4>AA Gale Lag Jaa</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772287893/Aa_Gale_Lag_Jaa_Duet_Version_Sarzameen_128_Kbps_fz6jvr.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772287606/dil_mere_nam_fcb9oe.jpg" alt="Song 5" />
+            <h4>Dil Mere Nam</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772287878/Dil_Mere_Naam_Ek_Deewane_Ki_Deewaniyat_128_Kbps_c3r8ia.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772287606/mujhse_shaadi_kb97ql.jpg" alt="Song 5" />
+            <h4>Mujhse Shaadi Karogi</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772288038/Mujhse_Shaadi_Karogi_Sonu_Nigam_128_Kbps_hikywh.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772287603/you_are_my_soniya_uvmp0o.jpg" alt="Song 5" />
+            <h4>You are my soniya</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772288043/You_Are_My_Soniya_K3g_128_Kbps_uwfovb.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+         <div class="song-card">
+            <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772287601/mitti_ke_bete_usfili.jpg" alt="Song 5" />
+            <h4>Miti ke bete(border 2)</h4>
+            <audio class="audio">
+                <source src="https://res.cloudinary.com/dgnvmjvv5/video/upload/v1772288006/Mitti_Ke_Bete_Border_2_128_Kbps_mzvify.mp3" type="audio/mp3" />
+            </audio>
+            <div class="controls">
+                <button class="playPauseBtn"><i class="fas fa-play"></i></button>
+                <input type="range" id="progressBar" value="0" max="100">
+                <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+            </div>
+            <button class="like-btn" onclick="toggleLike(this)"><i class="fa-solid fa-thumbs-up"></i></button>
+            <button class="addToPlaylistBtn"><i class="fas fa-plus"></i> Add</button>
+        </div>
+
+
+    </div>
+
+<script src="Sonu.js"></script>  
+<script src="theme.js"></script>                 
+
+</body>
+</html>    
+ 
+
+
+
+   
+
+
+   

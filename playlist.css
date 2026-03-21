@@ -1,0 +1,227 @@
+/* ================= RESET ================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ================= BODY ================= */
+body {
+  background-color: #111;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 20px;
+}
+
+/* ================= HEADER ================= */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1db954;
+  color: black;
+  padding: 15px 30px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+header h1 {
+  font-size: 1.6rem;
+}
+
+header a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  background: #111;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+header a:hover {
+  background: #18a347;
+}
+
+/* ================= PLAYLIST LIST ================= */
+ul#playlist-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ================= SONG CARD ================= */
+.song-card {
+  background-color: #1a1a1a;
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.song-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 18px rgba(29, 185, 84, 0.35);
+}
+
+/* ================= SONG INFO ================= */
+.song-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.song-left img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.song-info h4 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* ================= CONTROLS ================= */
+.song-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* ================= PLAY / PAUSE BUTTON ================= */
+.playPauseBtn {
+  background: #1db954;
+  border: none;
+  color: black;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.playPauseBtn:hover {
+  background: #18a347;
+  transform: scale(1.08);
+}
+
+/* ================= PROGRESS + TIME ================= */
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 5px;
+  accent-color: #1db954;
+  cursor: pointer;
+}
+
+.currentTime,
+.duration {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* ================= EMPTY MESSAGE ================= */
+#playlist-list p {
+  text-align: center;
+  color: gray;
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-top: 40px;
+}
+
+/* ================= LIGHT MODE ================= */
+body:not(.dark) {
+  background: #f7f7f7;
+  color: #111;
+}
+
+body:not(.dark) header {
+  background: linear-gradient(90deg, #1db954, #14833b);
+  color: white;
+}
+
+body:not(.dark) .song-card {
+  background: white;
+  color: #111;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+body:not(.dark) .song-info h4 {
+  color: #111;
+}
+
+/* ================= DARK MODE ================= */
+body.dark {
+  background-color: #0d0d0d;
+  color: white;
+}
+
+body.dark header {
+  background: linear-gradient(90deg, #00cc66, #00994d);
+  color: white;
+}
+
+body.dark .song-card {
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 20px rgba(0,255,128,0.15);
+}
+
+body.dark .playPauseBtn {
+  background: #00ff6a;
+  color: black;
+}
+
+body.dark a {
+  color: #00ff6a;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+  .song-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .progress {
+    width: 100%;
+  }
+}
+
+
+.removeBtn {
+  background: #ff3b3b;
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.3s;
+}
+
+.removeBtn:hover {
+  background: #cc0000;
+}

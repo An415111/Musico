@@ -1,0 +1,144 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0d0d0d;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #00ff6a, #00994d);
+  color: black;
+  padding: 20px 40px;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
+}
+
+header h1 {
+  font-size: 26px;
+}
+
+.back-btn {
+  background: rgba(0,0,0,0.4);
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: #00ff6a;
+  color: black;
+  transform: scale(1.05);
+}
+
+/* Common Glass Look */
+.glass {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  margin: 20px;
+  box-shadow: 0 0 25px rgba(0, 255, 128, 0.15);
+  transition: 0.3s;
+}
+
+.glass:hover {
+  box-shadow: 0 0 40px rgba(0, 255, 128, 0.3);
+}
+
+/* Support Form */
+.support-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+form input, textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+form button {
+  background: #00ff6a;
+  color: black;
+  border: none;
+  border-radius: 30px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+form button:hover {
+  background: white;
+  color: #00cc66;
+}
+
+/* Download Page */
+.download-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+.song-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 400px;
+}
+.song-card img {
+  width: 70px;
+  border-radius: 10px;
+}
+
+/* Settings Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+.switch input { display: none; }
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #555;
+  border-radius: 34px;
+  top: 0; left: 0; right: 0; bottom: 0;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
+}
+input:checked + .slider {
+  background-color: #00ff6a;
+}
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* Footer */
+footer {
+  margin-top: 60px;
+  text-align: center;
+  padding: 20px;
+  background: #0a0a0a;
+  color: #777;
+}
