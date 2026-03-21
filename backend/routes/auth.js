@@ -4,7 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const Otp = require('../models/OTP');
+const Otp = require('../models/otp');
 
 
 // ============================
