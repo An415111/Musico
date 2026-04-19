@@ -1,0 +1,52 @@
+<footer>
+  <p>© 2026 Musico 🎵</p>
+</footer>
+
+<!-- MINI PLAYER -->
+<div id="miniPlayer" class="mini-player" style="display:none;">
+  <img id="miniImg" src="" alt="song" class="mini-img"/>
+  <div class="mini-info">
+    <span id="miniTitle">No song playing</span>
+    <input type="range" id="miniProgress" value="0" class="mini-progress">
+    <div class="mini-time">
+      <span id="miniCurrent">0:00</span> / <span id="miniDuration">0:00</span>
+    </div>
+  </div>
+  <div class="mini-controls">
+    <button id="miniPrev" title="Previous">
+      <i class="fas fa-step-backward"></i>
+    </button>
+    <button id="miniPlayPause" title="Play/Pause">
+      <i class="fas fa-play"></i>
+    </button>
+    <button id="miniNext" title="Next">
+      <i class="fas fa-step-forward"></i>
+    </button>
+    <button id="miniQueue" title="Show Queue">
+      <i class="fas fa-list"></i>
+    </button>
+    <button id="miniClose" title="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>
+
+<!-- QUEUE PANEL -->
+<div id="queuePanel" class="queue-panel" style="display:none;">
+  <div class="queue-header">
+    <h3>🎵 Song Queue</h3>
+    <button id="closeQueue"><i class="fas fa-times"></i></button>
+  </div>
+  <div id="queueList" class="queue-list"></div>
+  <button id="clearQueue" class="clear-queue-btn">Clear Queue</button>
+</div>
+
+
+
+<script src="/js/music.js"></script>
+<script src="/js/theme.js"></script>
+<script src="/js/miniPlayer.js"></script>
+<script src="/js/queue.js"></script>
+
+</body>
+</html>

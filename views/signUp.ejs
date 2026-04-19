@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Musico</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/signUp.css"/>
+</head>
+
+<body>
+
+<div class="form-box">
+  <h2>Sign Up</h2>
+
+  <form id="signup-form">
+    <input type="text" id="firstName" placeholder="First Name" required/>
+    <input type="text" id="lastName" placeholder="Last Name" required/>
+    <input type="email" id="email" placeholder="Email" required/>
+
+    <div class="password-wrapper">
+      <input type="password" id="password" placeholder="Password" required/>
+      <span class="toggle-password" id="togglePassword">👁️</span>
+    </div>
+
+    <div class="password-wrapper">
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required/>
+      <span class="toggle-password" id="toggleConfirmPassword">👁️</span>
+    </div>
+
+    <button type="submit">Sign Up</button>
+
+    <!-- STATUS MESSAGE -->
+    <p id="statusMsg" style="color: lightgreen; margin-top:10px;"></p>
+  </form>
+
+  <!-- OTP SECTION -->
+  <div id="otpSection" style="display:none; margin-top:20px;">
+    <input type="text" id="otp" placeholder="Enter OTP" required/>
+    <button type="button" id="verifyOtpBtn">Verify OTP</button>
+  </div>
+
+  <!-- ROUTING -->
+  <a href="/">Already have an account? Sign In</a>
+</div>
+
+<!-- JS -->
+<script src="/js/signup.js"></script>
+
+</body>
+</html>

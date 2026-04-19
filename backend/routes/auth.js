@@ -37,8 +37,25 @@ router.post('/signup', async (req, res) => {
       to: email,
       subject: 'Musico OTP Verification',
       html: `
-        <h2>Your OTP is: ${otpCode}</h2>
-        <p>This OTP will expire in 5 minutes.</p>
+        <div style="font-family:Arial; padding:20px;">
+          <h2 style="color:#333;">🎵 Musico OTP Verification</h2>
+      
+          <p>Hello User,</p>
+      
+          <p>Your OTP is:</p>
+      
+          <h1 style="color:#00ff6a; letter-spacing:5px;">
+            ${otpCode}
+          </h1>
+
+          <p>This OTP will expire in <b>5 minutes</b>.</p>
+
+          <hr>
+
+          <p style="font-size:12px; color:gray;">
+            If you didn’t request this, please ignore this email.
+          </p>
+        </div>
       `
     });
 
@@ -89,7 +106,7 @@ router.post('/verify-otp', async (req, res) => {
     await Otp.deleteMany({ email });
 
     const token = jwt.sign(
-      { id: user._id },
+      { id: user._id, role: user.role }, // 🔥 IMPORTANT
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -111,20 +128,16 @@ router.post('/verify-otp', async (req, res) => {
   }
 });
 
-// ============================
-// LOGIN USER
-// ============================
+
+//login user
+
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ msg: 'Email and password required' });
-    }
-
     const user = await User.findOne({ email });
+
     if (!user) {
-      return res.status(400).json({ msg: 'Invalid credentials' });
+      return res.status(400).json({ msg: 'User not found' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -132,30 +145,33 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ msg: 'Invalid credentials' });
     }
 
+    // 🛠 FORCE CHECK: Let's see what the database says right now
+    console.log(`🛠 [DB Verification] User: ${user.email} | Role in DB: ${user.role}`);
+
     const token = jwt.sign(
-      { id: user._id },
+      { 
+        id: user._id, 
+        role: user.role, // This MUST be "admin"
+        email: user.email 
+      }, 
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
 
-    res.json({
-      msg: 'Login successful',
-      token,
-      user: {
-        id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email
-      }
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000  // ← ADD THIS (7 days in milliseconds)
     });
+    res.redirect("/music");
+
 
   } catch (err) {
-    console.error("LOGIN ERROR:", err);
+    console.error("Critical Login Error:", err);
     res.status(500).json({ msg: 'Server error' });
   }
 });
-
-
 
 // ============================
 // FORGOT PASSWORD - SEND OTP
@@ -221,6 +237,25 @@ router.post('/reset-password', async (req, res) => {
 
     res.json({ msg: 'Password reset successful' });
 
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+//update profile
+router.post('/update-profile', async (req, res) => {
+  try {
+    const jwt = require('jsonwebtoken');
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ msg: 'Not logged in' });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { firstName, lastName } = req.body;
+
+    await User.findByIdAndUpdate(decoded.id, { firstName, lastName });
+
+    res.json({ msg: 'Profile updated' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: 'Server error' });

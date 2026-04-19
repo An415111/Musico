@@ -1,0 +1,89 @@
+<%- include("partials/header", { title: "Musico" }) %>
+<%- include("partials/navbar", { user: user }) %>
+
+<main>
+
+  <!-- Search Bar -->
+  <div class="search-wrapper">
+    <i class="fa fa-search search-icon"></i>
+    <input type="text" id="search-input" placeholder="Search songs...">
+  </div>
+  
+  <h2 id="searchTitle" style="display:none; margin-top:30px;">Search Results</h2>
+  <div class="music-row" id="youtube-results"></div>
+
+  <!-- YouTube Player -->
+  <div id="yt-player-container" style="margin-top:30px;">
+    <div id="yt-player"></div>
+  </div>
+
+  <!-- Recently Played -->
+  <h2 style="margin-top: 40px; color: white;">Recently Played</h2>   
+  <div class="music-row" id="songsContainer"></div> 
+
+  <!-- Collections -->
+  <section class="section-title">Song Collections</section>
+
+  <div class="music-row">
+    <div class="song-card">
+      <a href="/artist/Arjit">
+        <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266087/Arjit_bgmvbp.webp"/>
+      </a>  
+      <h4>Arjit Singh</h4>
+    </div>
+
+    <div class="song-card">
+      <a href="/artist/Honey">
+        <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266099/Honey_rzdfm3.jpg"/>
+      </a>  
+      <h4>Honey Singh</h4>
+    </div>
+
+    <div class="song-card">
+      <a href="/artist/Sonu">
+        <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266128/Sonu_dww4nm.jpg"/>
+      </a>  
+      <h4>Sonu Nigam</h4>
+    </div>
+
+    <div class="song-card">
+      <a href="/artist/Darshan">
+        <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266095/darshan_utahpz.jpg"/>
+      </a>  
+      <h4>Darshan Raval</h4>
+    </div>
+  </div>
+
+  <div class="music-row">  
+    <div class="song-card">
+      <a href="/artist/vishal">
+        <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266133/vishal_bpwd5i.jpg"/>
+      </a>  
+      <h4>Vishal Mishra</h4>
+    </div>  
+
+    <div class="song-card">
+      <a href="/artist/Badshah">
+        <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266086/Badshah_y6kqkt.jpg"/>
+      </a>  
+      <h4>Badshah</h4>        
+    </div>
+
+    <div class="song-card">
+      <a href="/artist/Sachet">
+        <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266118/Sachet_clezv8.jpg"/>
+      </a>  
+      <h4>Sachet Tandon</h4>
+    </div>
+
+    <div class="song-card">
+      <a href="/artist/Khesari">
+        <img src="https://res.cloudinary.com/dgnvmjvv5/image/upload/v1772266105/khesari_khtj32.jpg"/>
+      </a>  
+      <h4>Khesari Lal Yadav</h4>
+    </div> 
+  </div>
+
+</main>
+
+<%- include("partials/footer") %>

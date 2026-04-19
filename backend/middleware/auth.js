@@ -1,16 +1,32 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-module.exports = function (req, res, next) {
-  // Accept token from Authorization: Bearer <token> or x-auth-token
-  const token = req.header('Authorization')?.replace('Bearer ', '') || req.header('x-auth-token');
+exports.verifyUser = (req, res, next) => {
+  const token = req.cookies.token;
 
-  if (!token) return res.status(401).json({ msg: 'No token, authorization denied' });
+  if (!token) {
+    console.log("⚠️ [Auth] No token found. Redirecting to login.");
+    return res.redirect("/");
+  }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded.id; // we store id when signing
+    req.user = decoded;
     next();
   } catch (err) {
-    return res.status(401).json({ msg: 'Token is not valid' });
+    console.log("❌ [Auth] Token verification failed. Clearing cookie.");
+    res.clearCookie("token");
+    return res.redirect("/");
   }
+};
+
+exports.verifyAdmin = (req, res, next) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res.status(403).send(`
+      <script>
+        alert("Access Denied (Admin only)");
+        window.location.href = "/music";
+      </script>
+    `);
+  }
+  next();
 };

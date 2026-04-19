@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Playlist = require('../models/playlist');
-const auth = require('../middleware/auth');
+const { verifyUser } = require('../middleware/auth');
 
 // ➕ ADD SONG TO PLAYLIST
-router.post('/add', auth, async (req, res) => {
+router.post('/add', verifyUser, async (req, res) => {
   try {
     const { title, src, image } = req.body;
 
@@ -13,7 +13,7 @@ router.post('/add', auth, async (req, res) => {
     }
 
     const exists = await Playlist.findOne({
-      user: req.user,
+      user: req.user.id,
       src
     });
 
@@ -22,7 +22,7 @@ router.post('/add', auth, async (req, res) => {
     }
 
     const song = new Playlist({
-      user: req.user,
+      user: req.user.id,
       title,
       src,
       image
@@ -32,14 +32,16 @@ router.post('/add', auth, async (req, res) => {
     res.json({ msg: 'Song added to playlist' });
 
   } catch (err) {
+    console.error(err);
     res.status(500).json({ msg: 'Server error' });
   }
 });
 
+
 // 📥 GET USER PLAYLIST
-router.get('/', auth, async (req, res) => {
+router.get('/', verifyUser, async (req, res) => {
   try {
-    const songs = await Playlist.find({ user: req.user })
+    const songs = await Playlist.find({ user: req.user.id })
       .sort({ createdAt: -1 });
 
     res.json(songs);
@@ -48,12 +50,13 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// ❌ REMOVE SONG FROM PLAYLIST  ✅ (NOW WORKING)
-router.delete('/:id', auth, async (req, res) => {
+
+// ❌ REMOVE SONG FROM PLAYLIST
+router.delete('/:id', verifyUser, async (req, res) => {
   try {
     const deleted = await Playlist.findOneAndDelete({
       _id: req.params.id,
-      user: req.user
+      user: req.user.id
     });
 
     if (!deleted) {
@@ -61,6 +64,7 @@ router.delete('/:id', auth, async (req, res) => {
     }
 
     res.json({ msg: 'Song removed from playlist' });
+
   } catch (err) {
     res.status(500).json({ msg: 'Server error' });
   }

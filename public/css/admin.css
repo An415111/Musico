@@ -1,0 +1,154 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #0d0d0d;
+  color: white;
+}
+
+.admin-wrapper {
+  display: flex;
+  min-height: 100vh; /* ← changed from height to min-height */
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: #111;
+  padding: 20px;
+  border-right: 1px solid #222;
+  position: sticky; /* ← sidebar stays fixed */
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar h2 {
+  color: #00ff6a;
+}
+
+/* CONTENT AREA */
+.content-area {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto; /* ← allows scrolling */
+  height: 100vh;
+}
+
+/* MAIN */
+.main {
+  padding: 20px 0; /* ← removed flex:1 */
+}
+
+.main h2 {
+  margin-bottom: 20px;
+}
+
+/* FORM */
+.form {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
+}
+
+.form button {
+  padding: 12px 25px;
+  background: #00ff6a;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+}
+
+.form button:hover {
+  background: #1db954;
+}
+
+.back-btn {
+  background: transparent;
+  border: 1px solid #00ff6a;
+  color: #00ff6a;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.back-btn:hover {
+  background: #00ff6a;
+  color: black;
+  transform: scale(1.05);
+}
+
+/* ADD DROPDOWN */
+select#collection {
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #00ff6a;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+select#collection option {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* DELETE DROPDOWN */
+select#deleteSongSelect {
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #ff4444;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  min-width: 300px;
+}
+
+select#deleteSongSelect option {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+select#deleteSongSelect:focus {
+  box-shadow: 0 0 8px rgba(255, 68, 68, 0.4);
+}
+
+/* SIDEBAR LIST */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.sidebar ul li {
+  padding: 10px 0;
+  color: #aaa;
+  border-bottom: 1px solid #222;
+  font-size: 14px;
+}

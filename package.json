@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "nodemailer": "^8.0.5"
+  }
+}

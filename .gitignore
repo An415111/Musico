@@ -1,2 +1,21 @@
+# Node modules
 /backend/node_modules/
+node_modules/
+
+# Environment variables
 /backend/.env
+.env
+
+# Sensitive files
+/backend/makeAdmin.js
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Python files (not needed for deployment)
+*.py
+
+# Other unnecessary files
+song-collection
+requirement.txt

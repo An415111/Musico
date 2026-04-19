@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+  <script src="/js/theme.js"></script>
+</head>
+
+<body>
+
+<script>
+  const user = <%- JSON.stringify(user) %>;
+  if (!user) {
+    alert("Please login first");
+    window.location.href = "/";
+  }
+</script>
+
+<div class="admin-wrapper">
+
+  <div class="sidebar">
+    <button onclick="goBack()" class="back-btn">
+      <i class="fa-solid fa-arrow-left"></i> Back
+    </button>
+    <h2>Admin Panel</h2>
+    <ul>
+      <li>Add Songs</li>
+      <li>Delete Songs</li>
+    </ul>
+  </div>
+
+  <div class="content-area">
+
+    <div class="main">
+      <h2>Add New Song</h2>
+      <div class="form">
+        <input type="text" id="title" placeholder="Song Title">
+        <input type="text" id="artist" placeholder="Artist">
+        <input type="text" id="audioUrl" placeholder="Audio URL">
+        <input type="text" id="imageUrl" placeholder="Image URL">
+
+        <select id="collection">
+          <option value="general">Recently Played</option>
+          <option value="Arjit">Arjit Singh</option>
+          <option value="Honey">Honey Singh</option>
+          <option value="Sonu">Sonu Nigam</option>
+          <option value="Darshan">Darshan Raval</option>
+          <option value="Badshah">Badshah</option>
+          <option value="Khesari">Khesari Lal Yadav</option>
+        </select>
+
+
+        <button onclick="addSong()">
+          <i class="fa-solid fa-plus"></i> Add Song
+        </button>
+      </div>
+    </div>
+
+    <hr style="border-color: #333; margin: 40px 0;">
+
+    <div class="main">
+      <h2>Delete Song</h2>
+      <div class="form">
+        <select id="deleteSongSelect">
+          <option value="">-- Select Song to Delete --</option>
+        </select>
+        <button onclick="deleteSong()" class="delete-btn">
+          <i class="fa-solid fa-trash"></i> Delete Song
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="/js/admin.js"></script>
+<script>
+  function goBack() {
+    window.location.href = "/music";
+  }
+</script>
+
+</body>
+</html>

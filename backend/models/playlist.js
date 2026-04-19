@@ -6,18 +6,28 @@ const playlistSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+
   title: {
     type: String,
     required: true
   },
+
   src: {
     type: String,
     required: true
   },
+
   image: {
     type: String,
     required: true
+  },
+
+  // 🔥 OPTIONAL (future upgrade)
+  songId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Song'
   }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('Playlist', playlistSchema);

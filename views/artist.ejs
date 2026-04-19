@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title><%= artistName %> - Musico</title>
+  <link rel="stylesheet" href="/css/music.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+</head>
+
+<body>
+
+<header style="padding:20px;">
+  <h2>🎵 <%= artistName %></h2>
+  <a href="/music" style="color:white;">← Back</a>
+</header>
+
+<main>
+  <div class="music-row" id="songsContainer"></div>
+</main>
+
+<script>
+const artist = "<%= artistName %>";
+
+async function loadSongs() {
+  const res = await fetch(`/api/songs/collection/${artist}`);
+  const songs = await res.json();
+
+  const container = document.getElementById("songsContainer");
+  container.innerHTML = "";
+
+  songs.forEach(song => {
+    const card = document.createElement("div");
+    card.classList.add("song-card");
+
+    // ✅ Store title and artist 
+    card.dataset.title = song.title;
+    card.dataset.artist = song.artist || "";
+
+    card.innerHTML = `
+      <img src="${song.imageUrl}" />
+      <h4>${song.title}</h4>
+
+      <audio class="audio">
+        <source src="${song.audioUrl}" type="audio/mpeg"/>
+      </audio>
+
+      <div class="controls">
+        <button class="playPauseBtn">
+          <i class="fas fa-play"></i>
+        </button>
+        <input type="range" class="progressBar" value="0">
+        <span class="currentTime">0:00</span> /
+        <span class="duration">0:00</span>
+      </div>
+
+      <div class="extra-controls">
+        <button class="repeatBtn" title="Repeat">
+          <i class="fas fa-redo"></i>
+        </button>
+        <button class="shuffleBtn" title="Shuffle">
+          <i class="fas fa-random"></i>
+        </button>
+        <div class="volume-control">
+          <i class="fas fa-volume-up volume-icon"></i>
+          <input type="range" class="volumeBar" min="0" max="1" step="0.01" value="1">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button class="addToPlaylistBtn">+ Add</button>
+        <button class="addToQueueBtn" title="Add to Queue">
+          <i class="fas fa-list"></i> Queue
+        </button>
+        
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+
+  setupPlayer();
+  setupProgress();
+  setupPlaylist();
+  setupExtraControls();
+  setupQueue();
+}
+
+//----------------------------------------------------------
+// PLAYER
+//----------------------------------------------------------
+function setupPlayer() {
+  const buttons = document.querySelectorAll(".playPauseBtn");
+  const audios = document.querySelectorAll(".audio");
+
+  let currentAudio = null;
+  let currentBtn = null;
+
+  buttons.forEach((btn, i) => {
+    const audio = audios[i];
+    const icon = btn.querySelector("i");
+
+    btn.addEventListener("click", () => {
+      if (currentAudio && currentAudio !== audio) {
+        currentAudio.pause();
+        currentBtn.querySelector("i").classList.replace("fa-pause", "fa-play");
+      }
+
+      if (audio.paused) {
+        audio.play();
+        icon.classList.replace("fa-play", "fa-pause");
+        currentAudio = audio;
+        currentBtn = btn;
+
+        const card = btn.closest(".song-card");
+        const title = card.querySelector("h4").textContent;
+        const audioUrl = card.querySelector("audio source").src;
+        const imageUrl = card.querySelector("img").src;
+        saveToRecentlyPlayed(title, audioUrl, imageUrl, card.dataset.artist);
+      } else {
+        audio.pause();
+        icon.classList.replace("fa-pause", "fa-play");
+      }
+    });
+  });
+}
+
+//----------------------------------------------------------
+// PROGRESS BAR
+//----------------------------------------------------------
+function setupProgress() {
+  document.querySelectorAll(".song-card").forEach(card => {
+    const audio = card.querySelector(".audio");
+    const progress = card.querySelector(".progressBar");
+    const current = card.querySelector(".currentTime");
+    const duration = card.querySelector(".duration");
+
+    audio.addEventListener("loadedmetadata", () => {
+      duration.textContent = formatTime(audio.duration);
+      progress.max = Math.floor(audio.duration);
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      progress.value = Math.floor(audio.currentTime);
+      current.textContent = formatTime(audio.currentTime);
+    });
+
+    progress.addEventListener("input", () => {
+      audio.currentTime = progress.value;
+    });
+  });
+}
+
+function formatTime(sec) {
+  if (!sec) return "0:00";
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${s < 10 ? "0" : ""}${s}`;
+}
+
+//----------------------------------------------------------
+// REPEAT, SHUFFLE & VOLUME
+//----------------------------------------------------------
+function setupExtraControls() {
+  document.querySelectorAll(".song-card").forEach(card => {
+    const audio = card.querySelector(".audio");
+    const repeatBtn = card.querySelector(".repeatBtn");
+    const shuffleBtn = card.querySelector(".shuffleBtn");
+    const volumeBar = card.querySelector(".volumeBar");
+    const volumeIcon = card.querySelector(".volume-icon");
+
+    if (!repeatBtn || !shuffleBtn || !volumeBar) return;
+
+    let isRepeat = false;
+    let isShuffle = false;
+
+    repeatBtn.addEventListener("click", () => {
+      isRepeat = !isRepeat;
+      audio.loop = isRepeat;
+      repeatBtn.classList.toggle("active-control", isRepeat);
+    });
+
+    shuffleBtn.addEventListener("click", () => {
+      isShuffle = !isShuffle;
+      shuffleBtn.classList.toggle("active-control", isShuffle);
+      if (isShuffle) {
+        audio.addEventListener("ended", playRandom);
+      } else {
+        audio.removeEventListener("ended", playRandom);
+      }
+    });
+
+    function playRandom() {
+      const allCards = document.querySelectorAll(".song-card");
+      const randomIndex = Math.floor(Math.random() * allCards.length);
+      allCards[randomIndex].querySelector(".playPauseBtn").click();
+    }
+
+    volumeBar.addEventListener("input", () => {
+      audio.volume = volumeBar.value;
+      if (volumeBar.value == 0) {
+        volumeIcon.className = "fas fa-volume-mute volume-icon";
+      } else if (volumeBar.value < 0.5) {
+        volumeIcon.className = "fas fa-volume-down volume-icon";
+      } else {
+        volumeIcon.className = "fas fa-volume-up volume-icon";
+      }
+    });
+  });
+}
+
+//----------------------------------------------------------
+// PLAYLIST
+//----------------------------------------------------------
+function setupPlaylist() {
+  document.querySelectorAll(".addToPlaylistBtn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const card = btn.closest(".song-card");
+      const title = card.querySelector("h4").textContent;
+      const src = card.querySelector("audio source").src;
+      const image = card.querySelector("img").src;
+
+      const res = await fetch("/api/playlist/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ title, src, image })
+      });
+
+      const data = await res.json();
+      alert(data.msg);
+    });
+  });
+}
+
+//----------------------------------------------------------
+// QUEUE
+//----------------------------------------------------------
+function setupQueue() {
+  document.querySelectorAll(".addToQueueBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".song-card");
+      const title = card.querySelector("h4").textContent;
+      const audioUrl = card.querySelector("audio source").src;
+      const imageUrl = card.querySelector("img").src;
+
+      addToQueue({ title, audioUrl, imageUrl });
+
+      btn.innerHTML = '<i class="fas fa-check"></i> Added';
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-list"></i> Queue';
+      }, 1500);
+    });
+  });
+}
+
+
+
+loadSongs();
+
+async function saveToRecentlyPlayed(title, audioUrl, imageUrl, artist) {
+  try {
+    await fetch("/api/songs/recently-played", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ title, audioUrl, imageUrl, artist }) // ✅
+    });
+  } catch (err) {
+    console.error("Error saving recently played:", err);
+  }
+}
+</script>
+
+<!-- MINI PLAYER -->
+<div id="miniPlayer" class="mini-player" style="display:none;">
+  <img id="miniImg" src="" alt="song" class="mini-img"/>
+  <div class="mini-info">
+    <span id="miniTitle">No song playing</span>
+    <input type="range" id="miniProgress" value="0" class="mini-progress">
+    <div class="mini-time">
+      <span id="miniCurrent">0:00</span> / <span id="miniDuration">0:00</span>
+    </div>
+  </div>
+  <div class="mini-controls">
+    <button id="miniPrev" title="Previous">
+      <i class="fas fa-step-backward"></i>
+    </button>
+    <button id="miniPlayPause" title="Play/Pause">
+      <i class="fas fa-play"></i>
+    </button>
+    <button id="miniNext" title="Next">
+      <i class="fas fa-step-forward"></i>
+    </button>
+    <button id="miniQueue" title="Show Queue">
+      <i class="fas fa-list"></i>
+    </button>
+    <button id="miniClose" title="Close">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</div>
+
+<!-- QUEUE PANEL -->
+<div id="queuePanel" class="queue-panel" style="display:none;">
+  <div class="queue-header">
+    <h3>🎵 Song Queue</h3>
+    <button id="closeQueue"><i class="fas fa-times"></i></button>
+  </div>
+  <div id="queueList" class="queue-list"></div>
+  <button id="clearQueue" class="clear-queue-btn">Clear Queue</button>
+</div>
+
+
+
+<script src="/js/theme.js"></script>
+<script src="/js/miniPlayer.js"></script>
+<script src="/js/queue.js"></script>
+
+
+</body>
+</html>
