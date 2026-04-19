@@ -19,3 +19,6 @@ __pycache__/
 # Other unnecessary files
 song-collection
 requirement.txt
+
+__pycache__/
+*.pyc

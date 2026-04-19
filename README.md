@@ -39,3 +39,22 @@ Coming soon...
 git clone https://github.com/An415111/musico.git
 cd musico
 npm install
+
+```
+
+Create a `.env` file inside the `backend` folder and add:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_url
+JWT_SECRET=your_secret
+EMAIL_USER=your_email
+EMAIL_PASS=your_password
+CLOUDINARY_URL=your_cloudinary_url
+```
+
+Run the project:
+
+```bash
+node backend/server.js
+```
