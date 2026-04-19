@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Song = require("../models/Song");
+const Song = require("../models/song");
 const { verifyUser, verifyAdmin } = require("../middleware/auth");
 
 router.post("/add-song", verifyUser, verifyAdmin, async (req, res) => {
