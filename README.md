@@ -58,3 +58,5 @@ Run the project:
 ```bash
 node backend/server.js
 ```
+## 🌐 Live Demo
+https://musico-1-de4o.onrender.com
