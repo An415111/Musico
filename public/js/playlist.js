@@ -3,20 +3,16 @@
 //----------------------------------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
   const playlistContainer = document.getElementById("playlist-list");
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    alert("Please login first");
-    window.location.href = "/";
-    return;
-  }
 
   try {
     const res = await fetch("/api/playlist", {
-      headers: {
-        Authorization: token // ✅ FIXED
-      }
+      credentials: "include"  // ✅ sends cookie automatically
     });
+
+    if (res.redirected) {
+      window.location.href = res.url;
+      return;
+    }
 
     if (!res.ok) {
       playlistContainer.innerHTML =
@@ -145,17 +141,19 @@ document.addEventListener("click", async (e) => {
   if (!btn) return;
 
   const songId = btn.dataset.id;
-  const token = localStorage.getItem("token");
 
   if (!confirm("Remove this song from playlist?")) return;
 
   try {
     const res = await fetch(`/api/playlist/${songId}`, {
       method: "DELETE",
-      headers: {
-        Authorization: token // ✅ FIXED
-      }
+      credentials: "include"  // ✅ sends cookie automatically
     });
+
+    if (res.redirected) {
+      window.location.href = res.url;
+      return;
+    }
 
     if (!res.ok) {
       alert("Error removing song");
@@ -164,7 +162,6 @@ document.addEventListener("click", async (e) => {
 
     const data = await res.json();
     alert(data.msg);
-
     location.reload();
 
   } catch (err) {
