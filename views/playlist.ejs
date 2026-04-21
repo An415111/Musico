@@ -16,20 +16,10 @@
 
 <body>
 
-<!-- 🔐 LOGIN CHECK -->
-<script>
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    alert("Please login first");
-    window.location.href = "/";
-  }
-</script>
+<!-- ❌ REMOVE THE ENTIRE LOGIN CHECK SCRIPT BLOCK - NOT NEEDED -->
 
 <header>
   <h1>🎵 My Playlist</h1>
-
-  <!-- ✅ FIXED BACK LINK -->
   <a href="/music" style="color:white;">
     ← Back to Home
   </a>
