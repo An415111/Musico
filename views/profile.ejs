@@ -23,7 +23,6 @@
   <div class="profile-card glass-effect">
     
     <div class="profile-image">
-      <!-- Shows uploaded photo OR auto-generated avatar with initials -->
       <img id="profilePic" 
         src="https://ui-avatars.com/api/?name=<%= user.firstName %>+<%= user.lastName %>&background=00ff6a&color=000&size=128" 
         alt="User Profile">
@@ -31,10 +30,10 @@
       <p class="photo-hint">Click Edit then tap photo to change</p>
     </div>
 
-    <!-- Name with id so JS can make it editable -->
     <h2 id="userName"><%= user.firstName %> <%= user.lastName %></h2>
 
-    <p class="email">
+    <!-- ✅ ADD id="userEmail" so JS can read it -->
+    <p class="email" id="userEmail">
       <i class="fa-solid fa-envelope"></i> 
       <%= user.email %>
     </p>

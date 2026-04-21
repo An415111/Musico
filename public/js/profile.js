@@ -7,20 +7,32 @@ const profilePic = document.getElementById('profilePic');
 const uploadPic = document.getElementById('uploadPic');
 
 //----------------------------------------------------------
-// LOAD SAVED PROFILE PICTURE
+// GET CURRENT USER EMAIL AS UNIQUE KEY
+// ✅ strips the email icon text, gets only email part
+//----------------------------------------------------------
+const userEmail = document.getElementById('userEmail')
+  ?.textContent?.trim()
+  .split(/\s+/).pop(); // gets last word = actual email
+
+const defaultAvatar = profilePic.src; // save the avatar URL as fallback
+
+//----------------------------------------------------------
+// LOAD SAVED PROFILE PICTURE (per user)
 //----------------------------------------------------------
 window.onload = () => {
-  const savedPic = localStorage.getItem('profilePic');
+  if (!userEmail) return;
+  const savedPic = localStorage.getItem(`profilePic_${userEmail}`);
   if (savedPic) {
-    profilePic.src = savedPic;
+    profilePic.src = savedPic; // ✅ load this user's photo
+  } else {
+    profilePic.src = defaultAvatar; // ✅ fallback to generated avatar
   }
 };
 
 //----------------------------------------------------------
-// EDIT PROFILE - click profile pic to upload
+// EDIT PROFILE
 //----------------------------------------------------------
 editBtn.addEventListener('click', () => {
-  // Make name editable
   const nameEl = document.getElementById('userName');
   const nameInput = document.createElement('input');
   nameInput.value = nameEl.textContent.trim();
@@ -28,11 +40,9 @@ editBtn.addEventListener('click', () => {
   nameInput.classList.add('edit-input');
   nameEl.replaceWith(nameInput);
 
-  // Show save, hide edit
   editBtn.style.display = 'none';
   saveBtn.style.display = 'inline-block';
 
-  // Click profile pic to change photo
   profilePic.style.cursor = 'pointer';
   profilePic.title = 'Click to change photo';
   profilePic.addEventListener('click', () => uploadPic.click());
@@ -69,7 +79,6 @@ saveBtn.addEventListener('click', async () => {
       return;
     }
 
-    // Update UI
     const newNameEl = document.createElement('h2');
     newNameEl.id = 'userName';
     newNameEl.textContent = newName;
@@ -88,7 +97,7 @@ saveBtn.addEventListener('click', async () => {
 });
 
 //----------------------------------------------------------
-// PROFILE PICTURE UPLOAD (saved in localStorage)
+// PROFILE PICTURE UPLOAD (saved per user email)
 //----------------------------------------------------------
 uploadPic.addEventListener('change', (e) => {
   const file = e.target.files[0];
@@ -97,7 +106,7 @@ uploadPic.addEventListener('change', (e) => {
   const reader = new FileReader();
   reader.onload = () => {
     profilePic.src = reader.result;
-    localStorage.setItem('profilePic', reader.result); // saved locally
+    localStorage.setItem(`profilePic_${userEmail}`, reader.result); // ✅ per user
   };
   reader.readAsDataURL(file);
 });
