@@ -24,16 +24,17 @@ signupForm.addEventListener("submit", async function (e) {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/auth/signup", {
+    const res = await fetch("/api/auth/signup", {   // ✅ FIXED
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",   // 🔥 IMPORTANT for cookies
       body: JSON.stringify({ firstName, lastName, email, password }),
     });
 
     const data = await res.json();
 
     if (!res.ok) {
-      statusMsg.textContent = "❌ " + data.msg;
+      statusMsg.textContent = "❌ " + (data.msg || "Signup failed");
       statusMsg.style.color = "red";
       return;
     }
@@ -69,6 +70,7 @@ verifyOtpBtn.addEventListener("click", async () => {
     const res = await fetch("/api/auth/verify-otp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",   // 🔥 IMPORTANT
       body: JSON.stringify({
         firstName: tempUserData.firstName,
         lastName: tempUserData.lastName,
@@ -81,7 +83,7 @@ verifyOtpBtn.addEventListener("click", async () => {
     const data = await res.json();
 
     if (!res.ok) {
-      statusMsg.textContent = "❌ " + data.msg;
+      statusMsg.textContent = "❌ " + (data.msg || "OTP verification failed");
       statusMsg.style.color = "red";
       return;
     }
@@ -89,9 +91,8 @@ verifyOtpBtn.addEventListener("click", async () => {
     statusMsg.textContent = "✔ Account created successfully!";
     statusMsg.style.color = "lime";
 
-
     setTimeout(() => {
-      window.location.href = "/"; // ✅ FIXED
+      window.location.href = "/";
     }, 1500);
 
   } catch (error) {
@@ -100,6 +101,7 @@ verifyOtpBtn.addEventListener("click", async () => {
     statusMsg.style.color = "red";
   }
 });
+
 
 // ==========================
 // SHOW / HIDE PASSWORD
