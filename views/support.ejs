@@ -5,33 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Support - Musico</title>
   <link rel="stylesheet" href="/css/support.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
   <script src="/js/theme.js"></script>
 </head>
 <body>
 
-<!-- HEADER WITH BACK BUTTON -->
-<header class="support-header">
+<header>
   <h1>🎧 Support</h1>
   <a href="/music" class="back-btn">
     <i class="fa-solid fa-arrow-left"></i> Back
   </a>
 </header>
 
-  <div class="support-container">
-    <p>We're here to help! Fill out the form below and we'll get back to you soon.</p>
+<main class="support-container">
+  <div class="support-card">
+    <p class="support-intro">
+      We're here to help! Fill out the form below and we'll get back to you soon.
+    </p>
 
+    <!-- ✅ id="supportForm" -->
     <form id="supportForm">
-      <input type="text" id="name" placeholder="Your Name" required>
-      <input type="email" id="email" placeholder="Your Email" required>
-      <textarea id="message" rows="5" placeholder="Describe your issue..." required></textarea>
-      <button type="submit">Submit</button>
+
+      <input 
+        type="text" 
+        id="supportName" 
+        placeholder="Your Name" 
+        required 
+      />
+
+      <input 
+        type="email" 
+        id="supportEmail" 
+        placeholder="Your Email" 
+        required 
+      />
+
+      <textarea 
+        id="supportMessage" 
+        placeholder="Describe your issue..." 
+        rows="6" 
+        required
+      ></textarea>
+
+      <!-- ✅ Status message shown after submit -->
+      <p id="statusMsg" style="text-align:center; font-size:14px; margin-bottom:10px;"></p>
+
+      <button type="submit" id="submitBtn">Submit</button>
+
     </form>
-
-    <p id="statusMsg" class="status"></p>
   </div>
+</main>
 
-  <script src="/js/support.js"></script>
+<footer>© 2025 Musico | Support</footer>
+
+<script src="/js/support.js"></script>
 
 </body>
 </html>
