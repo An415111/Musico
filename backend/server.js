@@ -7,11 +7,25 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-// ✅ Middlewares
+// ✅ Trust Render's proxy (REQUIRED for cookies on Render)
+app.set("trust proxy", 1);
+
+// ✅ CORS - allow both localhost and production
 app.use(cors({
-  origin: "http://localhost:5000",
-  credentials: true  // ← allows cookies to be sent
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      "http://localhost:5000",
+      "https://musico-0ov1.onrender.com"
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -19,7 +33,7 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "../views"));
 
-// ✅ Static files 
+// ✅ Static files
 app.use(express.static(path.join(__dirname, "../public")));
 
 // ✅ MongoDB
