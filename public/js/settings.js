@@ -1,17 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
   const darkToggle = document.getElementById("darkMode");
 
-  const isDark = localStorage.getItem("theme") === "dark";
+  if (!darkToggle) return;
+
+  // ✅ Load saved preference using correct key "darkMode"
+  const isDark = localStorage.getItem("darkMode") === "true";
   darkToggle.checked = isDark;
-  document.body.classList.toggle("dark-mode", isDark);
+  document.body.classList.toggle("dark", isDark); // ✅ correct class "dark"
 
   darkToggle.addEventListener("change", () => {
     if (darkToggle.checked) {
-      document.body.classList.add("dark-mode");
-      localStorage.setItem("theme", "dark");
+      document.body.classList.add("dark");           // ✅ correct class
+      localStorage.setItem("darkMode", "true");      // ✅ correct key
     } else {
-      document.body.classList.remove("dark-mode");
-      localStorage.setItem("theme", "light");
+      document.body.classList.remove("dark");        // ✅ correct class
+      localStorage.setItem("darkMode", "false");     // ✅ correct key
     }
   });
 });
