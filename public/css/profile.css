@@ -1,13 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #0d0d0d;
   color: white;
   text-align: center;
-  margin: 0;
-  padding: 0;
 }
 
-/* Header */
+/* ── HEADER ── */
 header {
   display: flex;
   justify-content: space-between;
@@ -20,28 +24,34 @@ header {
 
 header h1 {
   font-size: 26px;
+  margin: 0;
+  color: black;
 }
 
 .back-btn {
   color: white;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   padding: 10px 20px;
   border-radius: 30px;
   text-decoration: none;
+  font-weight: 500;
   transition: 0.3s;
+  white-space: nowrap;
 }
+
 .back-btn:hover {
   background: #00ff6a;
   color: black;
   transform: scale(1.05);
 }
 
-/* Profile Container */
+/* ── PROFILE CONTAINER ── */
 .profile-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
+  padding-bottom: 60px;
 }
 
 .glass-effect {
@@ -51,7 +61,8 @@ header h1 {
   box-shadow: 0 8px 25px rgba(0, 255, 128, 0.15);
   border-radius: 20px;
   padding: 30px;
-  width: 400px;
+  width: 90%;
+  max-width: 450px;
   margin: 20px;
   transition: 0.3s;
 }
@@ -60,15 +71,33 @@ header h1 {
   box-shadow: 0 8px 40px rgba(0, 255, 128, 0.35);
 }
 
-/* Profile Card */
-.profile-card img {
-  width: 110px;
-  height: 110px;
+/* ── PROFILE CARD ── */
+.profile-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#profilePic {
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #00ff6a;
   box-shadow: 0 0 25px rgba(0, 255, 128, 0.6);
+  transition: opacity 0.3s;
   cursor: pointer;
+}
+
+#profilePic:hover {
+  opacity: 0.8;
+}
+
+.photo-hint {
+  font-size: 11px;
+  color: gray;
+  margin-top: 6px;
 }
 
 .profile-card h2 {
@@ -80,11 +109,12 @@ header h1 {
 .profile-card .email {
   color: #ccc;
   font-size: 15px;
-  margin-bottom: 20px;
+  margin: 10px 0 20px;
 }
 
-/* Buttons */
-.edit-btn, .save-btn {
+/* ── BUTTONS ── */
+.edit-btn,
+.save-btn {
   background: #00ff6a;
   color: black;
   padding: 10px 25px;
@@ -92,19 +122,36 @@ header h1 {
   border-radius: 30px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 15px;
   transition: 0.3s;
   margin: 5px;
 }
 
-.edit-btn:hover, .save-btn:hover {
+.edit-btn:hover,
+.save-btn:hover {
   background: white;
   color: #00cc66;
   transform: scale(1.05);
 }
 
-/* Account Details */
+/* ── EDIT INPUT ── */
+.edit-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #00ff6a;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  padding: 8px 15px;
+  text-align: center;
+  width: 80%;
+  margin: 10px auto;
+  outline: none;
+}
+
+/* ── ACCOUNT DETAILS ── */
 .account-details {
-  width: 500px;
+  width: 90%;
+  max-width: 500px;
   text-align: left;
 }
 
@@ -114,9 +161,15 @@ header h1 {
   font-size: 22px;
 }
 
+.account-details ul {
+  list-style: none;
+  padding: 0;
+}
+
 .account-details li {
   padding: 8px 0;
   font-size: 17px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .account-details i {
@@ -124,7 +177,7 @@ header h1 {
   margin-right: 8px;
 }
 
-/* Footer */
+/* ── FOOTER ── */
 footer {
   margin-top: 60px;
   padding: 20px;
@@ -133,23 +186,21 @@ footer {
   font-size: 14px;
 }
 
-.photo-hint {
-  font-size: 11px;
-  color: gray;
-  margin-top: 6px;
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+  header {
+    padding: 15px 20px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  .glass-effect {
+    padding: 20px 15px;
+  }
+
+  .account-details {
+    width: 90%;
+  }
 }
-
-#profilePic {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #00ff6a;
-  transition: opacity 0.3s;
-}
-
-#profilePic:hover {
-  opacity: 0.8;
-}
-
-

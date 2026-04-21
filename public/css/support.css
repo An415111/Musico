@@ -12,17 +12,17 @@ body {
 }
 
 /* ── HEADER ── */
-.support-header {
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
+  padding: 20px 40px;
   background: linear-gradient(to right, #00c853, #00e676);
   color: black;
   width: 100%;
 }
 
-.support-header h1 {
+header h1 {
   font-size: 24px;
   font-weight: bold;
   color: black;
@@ -37,6 +37,7 @@ body {
   text-decoration: none;
   font-weight: bold;
   transition: background 0.3s;
+  white-space: nowrap;
 }
 
 .back-btn:hover {
@@ -49,7 +50,8 @@ body {
   backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 40px 50px;
-  width: 400px;
+  width: 90%;
+  max-width: 500px;
   text-align: center;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   margin: 60px auto;
@@ -67,7 +69,8 @@ body {
   color: #d1d1d1;
 }
 
-form input, form textarea {
+form input,
+form textarea {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
@@ -79,7 +82,8 @@ form input, form textarea {
   outline: none;
 }
 
-form input::placeholder, form textarea::placeholder {
+form input::placeholder,
+form textarea::placeholder {
   color: #bfbfbf;
 }
 
@@ -93,6 +97,7 @@ form button {
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
 form button:hover {
@@ -100,7 +105,31 @@ form button:hover {
   transform: scale(1.05);
 }
 
-.status {
-  margin-top: 15px;
+form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#statusMsg {
+  margin-top: 10px;
   font-size: 14px;
+  font-weight: 500;
+  min-height: 20px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 480px) {
+  header {
+    padding: 15px 20px;
+  }
+
+  header h1 {
+    font-size: 18px;
+  }
+
+  .support-container {
+    padding: 30px 20px;
+    margin: 30px auto;
+  }
 }
