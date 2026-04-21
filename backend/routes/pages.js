@@ -4,7 +4,8 @@ const { verifyUser, verifyAdmin } = require("../middleware/auth");
 const User = require("../models/User");
 
 // AUTH PAGES 
-router.get("/", (req, res) => res.render("signin"));
+router.get("/", (req, res) => res.render("index"));
+router.get("/signin", (req, res) => res.render("signin"));
 router.get("/signup", (req, res) => res.render("signUp"));
 router.get("/forgot", (req, res) => res.render("Forget_Password"));
 router.get("/reset", (req, res) => res.render("Reset"));
