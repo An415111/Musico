@@ -15,7 +15,7 @@ app.use(cors({
   origin: function (origin, callback) {
     const allowedOrigins = [
       "http://localhost:5000",
-      "https://musico-0ov1.onrender.com"
+      "https://musico-1-de4o.onrender.com"
     ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
