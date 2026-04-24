@@ -21,18 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({ email, password }),
-        credentials: "include"
+        credentials: "include"   // 🔥 IMPORTANT
       });
 
-      // ❗ IMPORTANT: NO res.json() HERE
+      const data = await res.json();   // ✅ ALWAYS JSON
 
-      if (res.redirected) {
-        // ✅ backend already set cookie
-        window.location.href = res.url;
-      } else {
-        const data = await res.json();
+      if (!res.ok) {
         alert(data.msg || "Login failed");
+        return;
       }
+
+      // ✅ SUCCESS → redirect manually
+      window.location.href = "/music";
 
     } catch (err) {
       console.error("Login error:", err);

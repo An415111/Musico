@@ -170,7 +170,13 @@ router.post('/login', async (req, res) => {
       sameSite: "None",
       maxAge: 7 * 24 * 60 * 60 * 1000  // ← ADD THIS (7 days in milliseconds)
     });
-    res.redirect("/music");
+    res.json({
+      msg: "Login successful",
+      user: {
+        id: user._id,
+        email: user.email
+      }
+    });
 
 
   } catch (err) {
