@@ -9,9 +9,16 @@
 
 <body>
 
-<header style="padding:20px;">
-  <h2>🎵 <%= artistName %></h2>
-  <a href="/music" style="color:white;">← Back</a>
+<header>
+  <h2 style="margin:0;">🎵 <%= artistName %></h2>
+
+  <!-- ✅ Search bar -->
+  <div class="search-wrapper" style="width:35%; margin:0;">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" id="search-input" placeholder="Search songs...">
+  </div>
+
+  <a href="/music" style="color:white; white-space:nowrap;">← Back</a>
 </header>
 
 <main>
@@ -32,7 +39,6 @@ async function loadSongs() {
     const card = document.createElement("div");
     card.classList.add("song-card");
 
-    // ✅ Store title and artist 
     card.dataset.title = song.title;
     card.dataset.artist = song.artist || "";
 
@@ -71,7 +77,6 @@ async function loadSongs() {
         <button class="addToQueueBtn" title="Add to Queue">
           <i class="fas fa-list"></i> Queue
         </button>
-        
       </div>
     `;
 
@@ -83,6 +88,33 @@ async function loadSongs() {
   setupPlaylist();
   setupExtraControls();
   setupQueue();
+  setupSearch(); // ✅ called after songs are loaded
+}
+
+//----------------------------------------------------------
+// ✅ SEARCH
+//----------------------------------------------------------
+function setupSearch() {
+  const searchInput = document.getElementById("search-input");
+  if (!searchInput) return;
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.toLowerCase().trim();
+    const cards = document.querySelectorAll(".song-card");
+
+    cards.forEach(card => {
+      const title = card.dataset.title?.toLowerCase() || "";
+      const artist = card.dataset.artist?.toLowerCase() || "";
+
+      if (!query) {
+        card.style.display = "block";
+      } else if (title.includes(query) || artist.includes(query)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
 }
 
 //----------------------------------------------------------
@@ -253,22 +285,23 @@ function setupQueue() {
   });
 }
 
-
-
-loadSongs();
-
+//----------------------------------------------------------
+// RECENTLY PLAYED
+//----------------------------------------------------------
 async function saveToRecentlyPlayed(title, audioUrl, imageUrl, artist) {
   try {
     await fetch("/api/songs/recently-played", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ title, audioUrl, imageUrl, artist }) // ✅
+      body: JSON.stringify({ title, audioUrl, imageUrl, artist })
     });
   } catch (err) {
     console.error("Error saving recently played:", err);
   }
 }
+
+loadSongs();
 </script>
 
 <!-- MINI PLAYER -->
@@ -282,21 +315,11 @@ async function saveToRecentlyPlayed(title, audioUrl, imageUrl, artist) {
     </div>
   </div>
   <div class="mini-controls">
-    <button id="miniPrev" title="Previous">
-      <i class="fas fa-step-backward"></i>
-    </button>
-    <button id="miniPlayPause" title="Play/Pause">
-      <i class="fas fa-play"></i>
-    </button>
-    <button id="miniNext" title="Next">
-      <i class="fas fa-step-forward"></i>
-    </button>
-    <button id="miniQueue" title="Show Queue">
-      <i class="fas fa-list"></i>
-    </button>
-    <button id="miniClose" title="Close">
-      <i class="fas fa-times"></i>
-    </button>
+    <button id="miniPrev" title="Previous"><i class="fas fa-step-backward"></i></button>
+    <button id="miniPlayPause" title="Play/Pause"><i class="fas fa-play"></i></button>
+    <button id="miniNext" title="Next"><i class="fas fa-step-forward"></i></button>
+    <button id="miniQueue" title="Show Queue"><i class="fas fa-list"></i></button>
+    <button id="miniClose" title="Close"><i class="fas fa-times"></i></button>
   </div>
 </div>
 
@@ -310,12 +333,9 @@ async function saveToRecentlyPlayed(title, audioUrl, imageUrl, artist) {
   <button id="clearQueue" class="clear-queue-btn">Clear Queue</button>
 </div>
 
-
-
 <script src="/js/theme.js"></script>
 <script src="/js/miniPlayer.js"></script>
 <script src="/js/queue.js"></script>
-
 
 </body>
 </html>

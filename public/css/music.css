@@ -49,8 +49,9 @@ header {
 .music-row {
   display: flex;
   gap: 20px;
-  padding: 10px 20px;
+  padding: 20px;
   flex-wrap: wrap;
+  justify-content: flex-start; /* ✅ no right side gap */
 }
 
 .song-card {
@@ -59,6 +60,8 @@ header {
   border-radius: 12px;
   width: 200px;
   text-align: center;
+  flex-shrink: 0; /* ✅ cards don't shrink */
+  transition: transform 0.3s ease;
 }
 
 .song-card img {
