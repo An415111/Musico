@@ -12,17 +12,7 @@ app.set("trust proxy", 1);
 
 // ✅ CORS - allow both localhost and production
 app.use(cors({
-  origin: function (origin, callback) {
-    const allowedOrigins = [
-      "http://localhost:5000",
-      "https://musico-1-de4o.onrender.com"
-    ];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: true,
   credentials: true
 }));
 
