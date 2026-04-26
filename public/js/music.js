@@ -1,9 +1,8 @@
 //----------------------------------------------------------
-// FETCH & DISPLAY SONGS (FROM BACKEND)
+// FETCH & DISPLAY RECENTLY PLAYED SONGS
 //----------------------------------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("songsContainer");
-
   if (!container) return;
 
   try {
@@ -13,56 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.innerHTML = "";
 
     songs.forEach(song => {
-      const card = document.createElement("div");
-      card.classList.add("song-card");
-
-      // ✅ Store title and artist
-      card.dataset.title = song.title;
-      card.dataset.artist = song.artist || "";
-
-      card.innerHTML = `
-        <img src="${song.imageUrl}" alt="song" />
-        <h4>${song.title}</h4>
-
-        <audio class="audio">
-          <source src="${song.audioUrl}" type="audio/mpeg"/>
-        </audio>
-
-        <div class="controls">
-          <button class="playPauseBtn">
-            <i class="fas fa-play"></i>
-          </button>
-          <input type="range" class="progressBar" value="0">
-          <span class="currentTime">0:00</span> /
-          <span class="duration">0:00</span>
-        </div>
-
-        <div class="extra-controls">
-          <button class="repeatBtn" title="Repeat">
-            <i class="fas fa-redo"></i>
-          </button>
-          <button class="shuffleBtn" title="Shuffle">
-            <i class="fas fa-random"></i>
-          </button>
-          <div class="volume-control">
-            <i class="fas fa-volume-up volume-icon"></i>
-            <input type="range" class="volumeBar" min="0" max="1" step="0.01" value="1">
-          </div>
-        </div>
-
-        <div class="button-row">
-          <button class="like-btn">
-            <i class="fa-solid fa-thumbs-up"></i>
-          </button>
-          <button class="addToPlaylistBtn">+ Add</button>
-          <button class="addToQueueBtn" title="Add to Queue">
-            <i class="fas fa-list"></i> Queue
-          </button>
-          
-        </div>
-      `;
-
-      container.appendChild(card);
+      container.appendChild(createSongCard(song));
     });
 
     setupPlayer();
@@ -76,6 +26,187 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error loading songs:", err);
   }
 });
+
+
+//----------------------------------------------------------
+// CREATE SONG CARD (reusable)
+//----------------------------------------------------------
+function createSongCard(song) {
+  const card = document.createElement("div");
+  card.classList.add("song-card");
+  card.dataset.title = song.title || "";
+  card.dataset.artist = song.artist || "";
+
+  card.innerHTML = `
+    <img src="${song.imageUrl}" alt="song" />
+    <h4>${song.title}</h4>
+
+    <audio class="audio">
+      <source src="${song.audioUrl}" type="audio/mpeg"/>
+    </audio>
+
+    <div class="controls">
+      <button class="playPauseBtn">
+        <i class="fas fa-play"></i>
+      </button>
+      <input type="range" class="progressBar" value="0">
+      <span class="currentTime">0:00</span> /
+      <span class="duration">0:00</span>
+    </div>
+
+    <div class="extra-controls">
+      <button class="repeatBtn" title="Repeat">
+        <i class="fas fa-redo"></i>
+      </button>
+      <button class="shuffleBtn" title="Shuffle">
+        <i class="fas fa-random"></i>
+      </button>
+      <div class="volume-control">
+        <i class="fas fa-volume-up volume-icon"></i>
+        <input type="range" class="volumeBar" min="0" max="1" step="0.01" value="1">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="like-btn">
+        <i class="fa-solid fa-thumbs-up"></i>
+      </button>
+      <button class="addToPlaylistBtn">+ Add</button>
+      <button class="addToQueueBtn" title="Add to Queue">
+        <i class="fas fa-list"></i> Queue
+      </button>
+    </div>
+  `;
+
+  return card;
+}
+
+
+//----------------------------------------------------------
+// SEARCH SYSTEM — searches ALL songs from backend
+//----------------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search-input");
+  if (!searchInput) return;
+
+  const searchResultsContainer = document.getElementById("search-results-container");
+  const searchTitle = document.getElementById("searchTitle");
+  const recentSection = document.getElementById("recentSection");
+  const collectionsSection = document.getElementById("collectionsSection");
+
+  let searchTimeout = null;
+
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim();
+
+    // ✅ Clear previous timeout (debounce)
+    clearTimeout(searchTimeout);
+
+    if (!query) {
+      // ✅ Reset — show everything
+      if (searchResultsContainer) searchResultsContainer.innerHTML = "";
+      if (searchTitle) searchTitle.style.display = "none";
+      if (recentSection) recentSection.style.display = "block";
+      if (collectionsSection) collectionsSection.style.display = "block";
+      return;
+    }
+
+    // ✅ Hide normal sections, show search
+    if (recentSection) recentSection.style.display = "none";
+    if (collectionsSection) collectionsSection.style.display = "none";
+    if (searchTitle) {
+      searchTitle.style.display = "block";
+      searchTitle.textContent = `🔍 Results for "${query}"`;
+    }
+
+    // ✅ Debounce — wait 300ms before searching
+    searchTimeout = setTimeout(async () => {
+      try {
+        searchResultsContainer.innerHTML = `
+          <p style="color:#aaa; text-align:center; width:100%; padding:20px;">
+            Searching...
+          </p>`;
+
+        const res = await fetch(`/api/songs/search?q=${encodeURIComponent(query)}`);
+        const songs = await res.json();
+
+        searchResultsContainer.innerHTML = "";
+
+        if (!songs.length) {
+          searchResultsContainer.innerHTML = `
+            <p style="color:#aaa; text-align:center; width:100%; padding:40px;">
+              😔 No songs found for "<strong>${query}</strong>"
+            </p>`;
+          return;
+        }
+
+        // ✅ Client-side fuzzy filter on top of backend results
+        const filtered = songs.filter(song => {
+          const title = (song.title || "").toLowerCase();
+          const artist = (song.artist || "").toLowerCase();
+          const q = query.toLowerCase();
+          return isFuzzyMatch(title, q) || isFuzzyMatch(artist, q);
+        });
+
+        if (!filtered.length) {
+          searchResultsContainer.innerHTML = `
+            <p style="color:#aaa; text-align:center; width:100%; padding:40px;">
+              😔 No songs found for "<strong>${query}</strong>"
+            </p>`;
+          return;
+        }
+
+        filtered.forEach(song => {
+          const card = createSongCard(song);
+          searchResultsContainer.appendChild(card);
+        });
+
+        // ✅ Setup player for new cards
+        setupPlayer();
+        setupProgressBar();
+        setupPlaylistButtons();
+        setupLikeButtons();
+        setupExtraControls();
+        setupQueue();
+
+      } catch (err) {
+        console.error("Search error:", err);
+        searchResultsContainer.innerHTML = `
+          <p style="color:red; text-align:center; width:100%;">
+            Error searching. Try again.
+          </p>`;
+      }
+    }, 300);
+  });
+});
+
+
+//----------------------------------------------------------
+// FUZZY MATCH HELPER
+//----------------------------------------------------------
+function isFuzzyMatch(text, search) {
+  if (!text || !search) return false;
+  if (text.includes(search)) return true;
+
+  const searchWords = search.split(" ").filter(w => w.length > 0);
+  const titleWords = text.split(" ");
+
+  return searchWords.every(word => {
+    return titleWords.some(tWord => {
+      if (tWord === word) return true;
+      if (tWord.startsWith(word) || word.startsWith(tWord)) return true;
+      if (word.length < 4) return tWord.includes(word);
+      if (Math.abs(tWord.length - word.length) > 1) return false;
+      let mismatches = 0;
+      const minLen = Math.min(tWord.length, word.length);
+      for (let i = 0; i < minLen; i++) {
+        if (tWord[i] !== word[i]) mismatches++;
+        if (mismatches > 1) return false;
+      }
+      return mismatches <= 1;
+    });
+  });
+}
 
 
 //----------------------------------------------------------
@@ -167,15 +298,12 @@ function setupLikeButtons() {
 
 
 //----------------------------------------------------------
-// ADD TO PLAYLIST (COOKIE BASED AUTH)
+// ADD TO PLAYLIST
 //----------------------------------------------------------
 function setupPlaylistButtons() {
-  const buttons = document.querySelectorAll(".addToPlaylistBtn");
-
-  buttons.forEach(btn => {
+  document.querySelectorAll(".addToPlaylistBtn").forEach(btn => {
     btn.addEventListener("click", async () => {
       const card = btn.closest(".song-card");
-
       const title = card.querySelector("h4").textContent;
       const src = card.querySelector("audio source").src;
       const image = card.querySelector("img").src;
@@ -275,58 +403,6 @@ function setupQueue() {
 }
 
 
-
-
-
-//----------------------------------------------------------
-// FUZZY SEARCH SYSTEM
-//----------------------------------------------------------
-document.addEventListener("DOMContentLoaded", () => {
-  const searchInput = document.getElementById("search-input");
-
-  if (!searchInput) return;
-
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase().trim();
-    const cards = document.querySelectorAll(".song-card");
-
-    if (!query) {
-      cards.forEach(card => card.style.display = "block");
-      return;
-    }
-
-    cards.forEach(card => {
-      const title = card.querySelector("h4")?.textContent.toLowerCase() || "";
-
-      const isFuzzyMatch = (text, search) => {
-        if (text.includes(search)) return true;
-
-        const searchWords = search.split(" ").filter(w => w.length > 0);
-        const titleWords = text.split(" ");
-
-        return searchWords.every(word => {
-          return titleWords.some(tWord => {
-            if (tWord === word) return true;
-            if (tWord.startsWith(word) || word.startsWith(tWord)) return true;
-            if (word.length < 4) return tWord.includes(word);
-            if (Math.abs(tWord.length - word.length) > 1) return false;
-            let mismatches = 0;
-            const minLen = Math.min(tWord.length, word.length);
-            for (let i = 0; i < minLen; i++) {
-              if (tWord[i] !== word[i]) mismatches++;
-              if (mismatches > 1) return false;
-            }
-            return mismatches <= 1;
-          });
-        });
-      };
-
-      card.style.display = isFuzzyMatch(title, query) ? "block" : "none";
-    });
-  });
-});
-
-
 //----------------------------------------------------------
 // MENU DROPDOWN
 //----------------------------------------------------------
@@ -348,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 //----------------------------------------------------------
-// LOGOUT FUNCTION
+// LOGOUT
 //----------------------------------------------------------
 function logout() {
   fetch("/logout", { credentials: "include" })

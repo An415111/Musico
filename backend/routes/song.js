@@ -59,4 +59,24 @@ router.post("/recently-played", async (req, res) => {
   }
 });
 
+// SEARCH ALL SONGS (FUZZY)
+router.get("/search", async (req, res) => {
+  try {
+    const query = req.query.q;
+    if (!query) return res.json([]);
+
+    const songs = await Song.find({
+      $or: [
+        { title: new RegExp(query, "i") },
+        { artist: new RegExp(query, "i") },
+        { category: new RegExp(query, "i") }
+      ]
+    }).limit(20);
+
+    res.json(songs);
+  } catch (err) {
+    res.status(500).json({ msg: "Search error" });
+  }
+});
+
 module.exports = router;
