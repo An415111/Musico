@@ -24,9 +24,8 @@ header {
   color: black;
 }
 
-.logo p{
+.logo p {
   font-size: 20px;
-
 }
 
 .new-buttons a {
@@ -46,13 +45,15 @@ header {
   color: #1db954;
 }
 
+/* ── MUSIC ROW (grid) ── */
 .music-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* ✅ auto fills space */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   padding: 20px;
 }
 
+/* ── SONG CARD ── */
 .song-card {
   background-color: #1a1a1a;
   padding: 15px;
@@ -60,7 +61,7 @@ header {
   text-align: center;
   transition: transform 0.3s ease;
   box-sizing: border-box;
-  width: 100%; /* ✅ fills grid cell */
+  width: 100%;
 }
 
 .song-card img {
@@ -74,22 +75,35 @@ header {
   color: #fff;
   font-size: 16px;
 }
- 
+
+.song-card:hover {
+  transform: translateY(-10px);
+}
+
+/* ── SEARCH RESULTS ── */
+#search-results-container {
+  display: none;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 220px)); /* ✅ fixed size */
+  gap: 20px;
+  padding: 20px;
+}
+
+#search-results-container .song-card {
+  width: 100%;
+  max-width: 220px; /* ✅ prevents stretching */
+}
+
 audio {
-    width: 100%;
+  width: 100%;
 }
 
 .controls {
-    align-items: center;
-    justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#currentTime,#duration{
-    font-size: 14px;
-}
-
-.song-card:hover {
-    transform: translateY(-10px);
+#currentTime, #duration {
+  font-size: 14px;
 }
 
 h2 {
@@ -124,11 +138,7 @@ h2 {
   width: 100%;
 }
 
-
-
-
-
-/* Like button */
+/* ── LIKE BUTTON ── */
 .like-btn {
   font-size: 20px;
   cursor: pointer;
@@ -154,32 +164,49 @@ h2 {
   color: red;
 }
 
+.like-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
 
+.like-btn:hover {
+  color: #1db954;
+  transform: scale(1.1);
+}
 
+.like-count {
+  font-size: 14px;
+  color: #ccc;
+}
 
 input {
-    padding: 0px;
-    width: 100%;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
+  padding: 0px;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
 }
 
 button {
-    padding: 8px 15px;
-    border: none;
-    background: black;
-    color: white;
-    border-radius: 50px;
-    margin-right: 10px;
+  padding: 8px 15px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 50px;
+  margin-right: 10px;
 }
 
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
-  
-
 
 .btn {
   cursor: pointer;
@@ -188,7 +215,7 @@ button:hover {
   gap: 8px;
 }
 
-#SignUp-btn{
+#SignUp-btn {
   font-size: 14px;
 }
 
@@ -197,8 +224,6 @@ button:hover {
   align-items: center;
   margin: 20px;
 }
-
-
 
 .switch {
   position: relative;
@@ -236,7 +261,7 @@ button:hover {
 }
 
 input:checked + .slider {
-  background-color: black; 
+  background-color: black;
 }
 
 input:checked + .slider:before {
@@ -248,6 +273,7 @@ body.dark-mode {
   color: white;
 }
 
+/* ── SEARCH BAR ── */
 .search-wrapper {
   position: relative;
   width: 50%;
@@ -256,7 +282,7 @@ body.dark-mode {
 
 .search-wrapper input {
   width: 100%;
-  padding: 10px 15px 10px 40px; 
+  padding: 10px 15px 10px 40px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
@@ -269,7 +295,7 @@ body.dark-mode {
   transform: translateY(-50%);
   color: #888;
   font-size: 18px;
-  pointer-events: none; 
+  pointer-events: none;
 }
 
 .header-right {
@@ -278,7 +304,7 @@ body.dark-mode {
   gap: 15px;
 }
 
-
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
@@ -311,8 +337,17 @@ body.dark-mode {
   .switch {
     margin-left: 0;
   }
+
+  .music-row {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  #search-results-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 180px));
+  }
 }
 
+/* ── PLAY BUTTON ── */
 .playPauseBtn {
   background-color: red;
   border: none;
@@ -332,7 +367,7 @@ body.dark-mode {
   background-color: #1ed760;
 }
 
-
+/* ── ADD TO PLAYLIST ── */
 .addToPlaylistBtn {
   background-color: transparent;
   border: 1px solid #1db954;
@@ -353,10 +388,7 @@ body.dark-mode {
   color: white;
 }
 
-
-
-
-/* 3-dot */
+/* ── 3-DOT MENU ── */
 .menu-container {
   position: relative;
   display: inline-block;
@@ -417,45 +449,11 @@ body.dark-mode {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Show menu when active */
 .menu-container.active .dropdown-menu {
   display: block;
 }
 
-
-
-
-
-
-
-.like-btn {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.like-btn:hover {
-  color: #1db954;
-  transform: scale(1.1);
-}
-
-.like-count {
-  font-size: 14px;
-  color: #ccc;
-}
-
-
-
-
-
-
-/* Light Mode */
+/* ── LIGHT MODE ── */
 body:not(.dark) {
   background: #f7f7f7;
   color: #111;
@@ -477,9 +475,7 @@ body:not(.dark) footer {
   color: #555;
 }
 
-
-
-/* Dark Mode */
+/* ── DARK MODE ── */
 body.dark {
   background-color: #0d0d0d;
   color: white;
@@ -490,15 +486,15 @@ body.dark header {
   color: white;
 }
 
-body.dark .song-card, 
-body.dark .glass, 
+body.dark .song-card,
+body.dark .glass,
 body.dark .playlist-card {
   background: rgba(255,255,255,0.05);
   box-shadow: 0 0 20px rgba(0,255,128,0.15);
   color: white;
 }
 
-body.dark .btn, 
+body.dark .btn,
 body.dark button {
   background: #00ff6a;
   color: black;
@@ -508,9 +504,7 @@ body.dark a {
   color: #00ff6a;
 }
 
-
-
-
+/* ── BUTTON ROW ── */
 .button-row {
   display: flex;
   justify-content: center;
@@ -520,7 +514,7 @@ body.dark a {
   flex-wrap: wrap;
 }
 
-/* ── EXTRA CONTROLS (Repeat, Shuffle, Volume) ── */
+/* ── EXTRA CONTROLS ── */
 .extra-controls {
   display: flex;
   align-items: center;
@@ -578,7 +572,6 @@ body.dark a {
   padding: 0;
   border-radius: 5px;
 }
-
 
 /* ── MINI PLAYER ── */
 .mini-player {
@@ -663,7 +656,6 @@ body.dark a {
   background: rgba(29, 185, 84, 0.15);
 }
 
-/* Push page content up so mini player doesn't cover it */
 body {
   padding-bottom: 80px;
 }
@@ -829,9 +821,3 @@ body {
 #miniQueue {
   position: relative;
 }
-
-
-
-
-
-

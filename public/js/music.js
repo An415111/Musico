@@ -101,35 +101,35 @@ document.addEventListener("DOMContentLoaded", () => {
     clearTimeout(searchTimeout);
 
     if (!query) {
-      // ✅ Clear AND hide search results
+      //  Clear AND hide search results
       if (searchResultsContainer) {
         searchResultsContainer.innerHTML = "";
         searchResultsContainer.style.display = "none";
       }
       if (searchTitle) searchTitle.style.display = "none";
 
-      // ✅ Show normal sections
+      //  Show normal sections
       if (recentSection) recentSection.style.display = "block";
       if (collectionsSection) collectionsSection.style.display = "block";
       return;
     }
 
-    // ✅ Hide normal sections
+    // Hide normal sections
     if (recentSection) recentSection.style.display = "none";
     if (collectionsSection) collectionsSection.style.display = "none";
 
-    // ✅ Show search results container
+    //  Show search results container
     if (searchResultsContainer) {
-      searchResultsContainer.style.display = "flex";
+      searchResultsContainer.style.display = "grid";
     }
 
-    // ✅ Show search title
+    //  Show search title
     if (searchTitle) {
       searchTitle.style.display = "block";
       searchTitle.textContent = `🔍 Results for "${query}"`;
     }
 
-    // ✅ Debounce 300ms
+    //  Debounce 300ms
     searchTimeout = setTimeout(async () => {
       try {
         if (searchResultsContainer) {
