@@ -83,7 +83,7 @@ function createSongCard(song) {
 
 
 //----------------------------------------------------------
-// SEARCH SYSTEM — searches ALL songs from backend
+// SEARCH SYSTEM
 //----------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("search-input");
@@ -98,70 +98,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchInput.addEventListener("input", () => {
     const query = searchInput.value.trim();
-
-    // ✅ Clear previous timeout (debounce)
     clearTimeout(searchTimeout);
 
     if (!query) {
-      // ✅ Reset — show everything
+      // ✅ Clear search results completely
       if (searchResultsContainer) searchResultsContainer.innerHTML = "";
       if (searchTitle) searchTitle.style.display = "none";
+
+      // ✅ Show normal sections again
       if (recentSection) recentSection.style.display = "block";
       if (collectionsSection) collectionsSection.style.display = "block";
       return;
     }
 
-    // ✅ Hide normal sections, show search
+    // ✅ Hide normal sections
     if (recentSection) recentSection.style.display = "none";
     if (collectionsSection) collectionsSection.style.display = "none";
+
+    // ✅ Show search title
     if (searchTitle) {
       searchTitle.style.display = "block";
       searchTitle.textContent = `🔍 Results for "${query}"`;
     }
 
-    // ✅ Debounce — wait 300ms before searching
+    // ✅ Debounce 300ms
     searchTimeout = setTimeout(async () => {
       try {
-        searchResultsContainer.innerHTML = `
-          <p style="color:#aaa; text-align:center; width:100%; padding:20px;">
-            Searching...
-          </p>`;
+        if (searchResultsContainer) {
+          searchResultsContainer.innerHTML = `
+            <p style="color:#aaa; text-align:center; width:100%; padding:20px;">
+              Searching...
+            </p>`;
+        }
 
         const res = await fetch(`/api/songs/search?q=${encodeURIComponent(query)}`);
         const songs = await res.json();
 
-        searchResultsContainer.innerHTML = "";
+        if (searchResultsContainer) searchResultsContainer.innerHTML = "";
 
         if (!songs.length) {
-          searchResultsContainer.innerHTML = `
-            <p style="color:#aaa; text-align:center; width:100%; padding:40px;">
-              😔 No songs found for "<strong>${query}</strong>"
-            </p>`;
+          if (searchResultsContainer) {
+            searchResultsContainer.innerHTML = `
+              <p style="color:#aaa; text-align:center; width:100%; padding:40px;">
+                😔 No songs found for "<strong>${query}</strong>"
+              </p>`;
+          }
           return;
         }
 
-        // ✅ Client-side fuzzy filter on top of backend results
-        const filtered = songs.filter(song => {
-          const title = (song.title || "").toLowerCase();
-          const artist = (song.artist || "").toLowerCase();
-          const q = query.toLowerCase();
-          return isFuzzyMatch(title, q) || isFuzzyMatch(artist, q);
+        // ✅ Deduplicate by audioUrl before rendering
+        const seen = new Set();
+        const unique = songs.filter(song => {
+          if (seen.has(song.audioUrl)) return false;
+          seen.add(song.audioUrl);
+          return true;
         });
 
-        if (!filtered.length) {
-          searchResultsContainer.innerHTML = `
-            <p style="color:#aaa; text-align:center; width:100%; padding:40px;">
-              😔 No songs found for "<strong>${query}</strong>"
-            </p>`;
-          return;
-        }
-
-        filtered.forEach(song => {
+        unique.forEach(song => {
           const card = createSongCard(song);
-          searchResultsContainer.appendChild(card);
+          if (searchResultsContainer) searchResultsContainer.appendChild(card);
         });
 
-        // ✅ Setup player for new cards
         setupPlayer();
         setupProgressBar();
         setupPlaylistButtons();
@@ -171,10 +168,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       } catch (err) {
         console.error("Search error:", err);
-        searchResultsContainer.innerHTML = `
-          <p style="color:red; text-align:center; width:100%;">
-            Error searching. Try again.
-          </p>`;
+        if (searchResultsContainer) {
+          searchResultsContainer.innerHTML = `
+            <p style="color:red; text-align:center; width:100%;">
+              Error searching. Try again.
+            </p>`;
+        }
       }
     }, 300);
   });
