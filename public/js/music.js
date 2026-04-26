@@ -101,11 +101,14 @@ document.addEventListener("DOMContentLoaded", () => {
     clearTimeout(searchTimeout);
 
     if (!query) {
-      // ✅ Clear search results completely
-      if (searchResultsContainer) searchResultsContainer.innerHTML = "";
+      // ✅ Clear AND hide search results
+      if (searchResultsContainer) {
+        searchResultsContainer.innerHTML = "";
+        searchResultsContainer.style.display = "none";
+      }
       if (searchTitle) searchTitle.style.display = "none";
 
-      // ✅ Show normal sections again
+      // ✅ Show normal sections
       if (recentSection) recentSection.style.display = "block";
       if (collectionsSection) collectionsSection.style.display = "block";
       return;
@@ -114,6 +117,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // ✅ Hide normal sections
     if (recentSection) recentSection.style.display = "none";
     if (collectionsSection) collectionsSection.style.display = "none";
+
+    // ✅ Show search results container
+    if (searchResultsContainer) {
+      searchResultsContainer.style.display = "flex";
+    }
 
     // ✅ Show search title
     if (searchTitle) {
@@ -146,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        // ✅ Deduplicate by audioUrl before rendering
+        // ✅ Deduplicate by audioUrl
         const seen = new Set();
         const unique = songs.filter(song => {
           if (seen.has(song.audioUrl)) return false;

@@ -47,21 +47,20 @@ header {
 }
 
 .music-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* ✅ auto fills space */
   gap: 20px;
   padding: 20px;
-  flex-wrap: wrap;
-  justify-content: flex-start; /* ✅ no right side gap */
 }
 
 .song-card {
   background-color: #1a1a1a;
   padding: 15px;
   border-radius: 12px;
-  width: 200px;
   text-align: center;
-  flex-shrink: 0; /* ✅ cards don't shrink */
   transition: transform 0.3s ease;
+  box-sizing: border-box;
+  width: 100%; /* ✅ fills grid cell */
 }
 
 .song-card img {
