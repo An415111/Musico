@@ -59,42 +59,6 @@ router.get("/artist/:name", verifyUser, async (req, res) => {
   res.render("artist", { artistName, user });
 });
 
-// STATIC ARTIST PAGES 
-router.get("/darshan", verifyUser, async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.render("Darshan", { user });
-});
-
-router.get("/badshah", verifyUser, async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.render("Badshah", { user });
-});
-
-router.get("/sonu", verifyUser, async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.render("sonu", { user });
-});
-
-router.get("/arjit", verifyUser, async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.render("Collection", { user });
-});
-
-router.get("/honey", verifyUser, async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.render("Honey", { user });
-});
-
-router.get("/javed", verifyUser, async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.render("javed", { user });
-});
-
-router.get("/khesari", verifyUser, async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.render("Khesari", { user });
-});
-
 // EXTRA
 router.get("/index", (req, res) => res.render("index"));
 

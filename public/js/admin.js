@@ -58,13 +58,15 @@ async function loadSongsForDelete() {
     "Honey": "Honey Singh",
     "Sonu": "Sonu Nigam",
     "Darshan": "Darshan Raval",
+    "Pawan": "Jubin Nautiyal",
     "Badshah": "Badshah",
     "Khesari": "Khesari Lal Yadav",
     "vishal": "Vishal Mishra",
-    "Sachet": "Sachet Tandon"
+    "Sachet": "Sachet Tandon",
+    "Pawan": "Pawan Singh"
   };
 
-  // ✅ Group songs by category
+  //  Group songs by category
   const grouped = {};
   songs.forEach(song => {
     const cat = song.category || "general";
@@ -72,7 +74,7 @@ async function loadSongsForDelete() {
     grouped[cat].push(song);
   });
 
-  // ✅ Render grouped options
+  // Render grouped options
   Object.keys(grouped).forEach(cat => {
     const groupLabel = categoryNames[cat] || cat;
 
@@ -84,11 +86,11 @@ async function loadSongsForDelete() {
       option.value = song._id;
 
       if (cat === "general") {
-        // ✅ Recently played: show artist + [Recently Played]
+        //  Recently played: show artist + [Recently Played]
         const artistLabel = song.artist ? song.artist : "Unknown";
         option.textContent = `${song.title} — ${artistLabel} [Recently Played]`;
       } else {
-        // ✅ Collection songs: show artist + [Collection]
+        //  Collection songs: show artist + [Collection]
         option.textContent = `${song.title} — ${song.artist || groupLabel} [${groupLabel}]`;
       }
 
