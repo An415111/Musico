@@ -19,7 +19,7 @@ async function addSong() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ title, artist, audioUrl, imageUrl, collection }) // ✅
+      body: JSON.stringify({ title, artist, audioUrl, imageUrl, collection })
     });
 
     if (!res.ok) {
@@ -36,6 +36,8 @@ async function addSong() {
     document.getElementById("audioUrl").value = "";
     document.getElementById("imageUrl").value = "";
 
+    loadSongsForDelete(); // ✅ refresh list after adding
+
   } catch (err) {
     console.error("Add song error:", err);
     alert("Server error");
@@ -49,11 +51,51 @@ async function loadSongsForDelete() {
   const select = document.getElementById("deleteSongSelect");
   select.innerHTML = '<option value="">-- Select Song to Delete --</option>';
 
+  // ✅ Category display names
+  const categoryNames = {
+    "general": "Recently Played",
+    "Arjit": "Arjit Singh",
+    "Honey": "Honey Singh",
+    "Sonu": "Sonu Nigam",
+    "Darshan": "Darshan Raval",
+    "Badshah": "Badshah",
+    "Khesari": "Khesari Lal Yadav",
+    "vishal": "Vishal Mishra",
+    "Sachet": "Sachet Tandon"
+  };
+
+  // ✅ Group songs by category
+  const grouped = {};
   songs.forEach(song => {
-    const option = document.createElement("option");
-    option.value = song._id;
-    option.textContent = `${song.title} (${song.artist || song.category})`;
-    select.appendChild(option);
+    const cat = song.category || "general";
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(song);
+  });
+
+  // ✅ Render grouped options
+  Object.keys(grouped).forEach(cat => {
+    const groupLabel = categoryNames[cat] || cat;
+
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = `── ${groupLabel} ──`;
+
+    grouped[cat].forEach(song => {
+      const option = document.createElement("option");
+      option.value = song._id;
+
+      if (cat === "general") {
+        // ✅ Recently played: show artist + [Recently Played]
+        const artistLabel = song.artist ? song.artist : "Unknown";
+        option.textContent = `${song.title} — ${artistLabel} [Recently Played]`;
+      } else {
+        // ✅ Collection songs: show artist + [Collection]
+        option.textContent = `${song.title} — ${song.artist || groupLabel} [${groupLabel}]`;
+      }
+
+      optgroup.appendChild(option);
+    });
+
+    select.appendChild(optgroup);
   });
 }
 
@@ -75,7 +117,7 @@ async function deleteSong() {
 
     const data = await res.json();
     alert(data.msg);
-    loadSongsForDelete();
+    loadSongsForDelete(); // ✅ refresh list after delete
 
   } catch (err) {
     console.error("Delete error:", err);
