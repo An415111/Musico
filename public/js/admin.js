@@ -63,7 +63,21 @@ async function loadSongsForDelete() {
     "Khesari": "Khesari Lal Yadav",
     "vishal": "Vishal Mishra",
     "Sachet": "Sachet Tandon",
-    "Pawan": "Pawan Singh"
+    "Pawan": "Pawan Singh",
+
+    //  NEW - Mood Based
+    "Sad": "Sad Songs",
+    "Dance": "Dance Hits",
+    "Romantic": "Romantic Songs",
+    "Party": "Party Songs",
+    "Devotional": "Devotional Songs",
+
+    //  NEW - Language Based
+    "Hindi": "Hindi Hits",
+    "Punjabi": "Punjabi Hits",
+    "Bhojpuri": "Bhojpuri Hits",
+    "Lofi": "Lo-Fi Chill",
+    "Motivational": "Motivational Songs"
   };
 
   //  Group songs by category
