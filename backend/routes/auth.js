@@ -33,7 +33,7 @@ router.post('/signup', async (req, res) => {
       expiresAt: new Date(Date.now() + 5 * 60 * 1000)
     });
 
-    await sendEmail({
+    sendEmail({
       to: email,
       subject: 'Musico OTP Verification',
       html: `
@@ -207,7 +207,7 @@ router.post('/forgot-password', async (req, res) => {
       expiresAt: new Date(Date.now() + 5 * 60 * 1000)
     });
 
-    await sendEmail({
+    sendEmail({
       to: email,
       subject: 'Musico Password Reset OTP',
       html: `<h2>Your Password Reset OTP: ${otpCode}</h2>
@@ -286,7 +286,7 @@ router.post('/support', async (req, res) => {
       return res.status(400).json({ msg: 'All fields are required' });
     }
 
-    await sendEmail({
+    sendEmail({
       to: process.env.ADMIN_EMAIL,
       subject: `🎵 Musico Support Request from ${name}`,
       html: `
@@ -307,8 +307,8 @@ router.post('/support', async (req, res) => {
       `
     });
 
-    // ✅ Also send confirmation email to user
-    await sendEmail({
+    //  Also send confirmation email to user
+    sendEmail({
       to: email,
       subject: `✅ We received your message - Musico Support`,
       html: `
