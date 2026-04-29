@@ -57,7 +57,7 @@ router.post('/signup', async (req, res) => {
           </p>
         </div>
       `
-    });
+    }).catch(err => console.error("Email error:", err));
 
     res.json({ msg: 'OTP sent to your email' });
 
