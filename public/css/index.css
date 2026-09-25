@@ -87,12 +87,6 @@ body {
     background: #1db954;
 }
 
-
-
-
-
-
-
 header {
   display: flex;
   justify-content: space-between;
@@ -100,7 +94,6 @@ header {
   background-color: #1db954;
   padding: 15px 30px;
 }
-
 
 .logo {
   font-size: 60px;
@@ -110,12 +103,7 @@ header {
 
 .logo p{
   font-size: 20px;
-
 }
-
-
-
-
 
 /* NAV BUTTONS */
 .nav-buttons .btn {
@@ -123,7 +111,6 @@ header {
     text-decoration: none;
     padding: 8px 18px;
     border-radius: 20px;
-    
 
     font-size: 15px;
     font-weight: 600;
@@ -141,16 +128,37 @@ header {
     transform: scale(1.05);
 }
 
+/* RESPONSIVE MEDIA QUERY */
+@media (max-width: 600px) {
+  header {
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
 
+  .logo {
+    font-size: 36px;
+  }
 
+  .logo p {
+    font-size: 14px;
+  }
 
+  .hero h1 {
+    font-size: 36px;
+  }
 
+  .hero p {
+    font-size: 16px;
+  }
 
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+  }
 
-
-
-
-
-
-
-
+  .nav-buttons .btn {
+    margin-left: 0;
+  }
+}

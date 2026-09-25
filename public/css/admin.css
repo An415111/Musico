@@ -7,7 +7,7 @@ body {
 
 .admin-wrapper {
   display: flex;
-  min-height: 100vh; /* ← changed from height to min-height */
+  min-height: 100vh;
 }
 
 /* SIDEBAR */
@@ -16,7 +16,7 @@ body {
   background: #111;
   padding: 20px;
   border-right: 1px solid #222;
-  position: sticky; /* ← sidebar stays fixed */
+  position: sticky;
   top: 0;
   height: 100vh;
 }
@@ -29,13 +29,13 @@ body {
 .content-area {
   flex: 1;
   padding: 30px;
-  overflow-y: auto; /* ← allows scrolling */
+  overflow-y: auto;
   height: 100vh;
 }
 
 /* MAIN */
 .main {
-  padding: 20px 0; /* ← removed flex:1 */
+  padding: 20px 0;
 }
 
 .main h2 {
@@ -151,4 +151,34 @@ select#deleteSongSelect:focus {
   color: #aaa;
   border-bottom: 1px solid #222;
   font-size: 14px;
+}
+
+/* RESPONSIVE MEDIA QUERY */
+@media (max-width: 768px) {
+  .admin-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid #222;
+    padding: 15px;
+  }
+
+  .content-area {
+    height: auto;
+    padding: 15px;
+  }
+
+  select#deleteSongSelect {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .form input {
+    min-width: 100%;
+  }
 }
