@@ -10,16 +10,15 @@
 
 <body>
 
-<header>
-  <h2 style="margin:0;">🎵 <%= artistName %></h2>
+<header class="artist-header">
+  <h2>🎵 <%= artistName %></h2>
 
-  <!-- ✅ Search bar -->
-  <div class="search-wrapper" style="width:35%; margin:0;">
+  <div class="search-wrapper header-search">
     <i class="fas fa-search search-icon"></i>
     <input type="text" id="search-input" placeholder="Search songs...">
   </div>
 
-  <a href="/music" style="color:white; white-space:nowrap;">← Back</a>
+  <a href="/music" class="back-btn">← Back</a>
 </header>
 
 <main>
