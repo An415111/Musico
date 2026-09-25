@@ -184,6 +184,12 @@ footer {
   background-color: #0a0a0a;
   color: #777;
   font-size: 14px;
+  text-align: center;
+}
+
+footer p {
+  text-align: center;
+  margin: 0;
 }
 
 /* ── RESPONSIVE ── */
