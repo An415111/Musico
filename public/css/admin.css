@@ -75,25 +75,28 @@ body {
 }
 
 .back-btn {
-  background: transparent;
-  border: 1px solid #00ff6a;
-  color: #00ff6a;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+  background-color: #004d25;
+  color: #ffffff !important;
+  padding: 10px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
   margin-bottom: 20px;
+  white-space: nowrap;
 }
 
 .back-btn:hover {
-  background: #00ff6a;
-  color: black;
-  transform: scale(1.05);
+  background-color: #006632;
+  color: #ffffff !important;
+  transform: translateY(-1px);
 }
 
 /* ADD DROPDOWN */

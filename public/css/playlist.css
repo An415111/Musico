@@ -29,18 +29,28 @@ header h1 {
   font-size: 1.6rem;
 }
 
-header a {
+.back-btn {
+  background-color: #004d25;
+  color: #ffffff !important;
+  padding: 10px 24px;
+  border-radius: 50px;
   text-decoration: none;
-  color: white;
-  font-weight: bold;
-  background: #111;
-  padding: 8px 16px;
-  border-radius: 8px;
-  transition: 0.3s;
+  font-size: 15px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
-header a:hover {
-  background: #18a347;
+.back-btn:hover {
+  background-color: #006632;
+  color: #ffffff !important;
+  transform: translateY(-1px);
 }
 
 /* ================= PLAYLIST LIST ================= */

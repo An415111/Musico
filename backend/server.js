@@ -36,6 +36,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/songs', require('./routes/song'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/playlist', require('./routes/playlist'));
+app.use('/api/ai', require('./routes/ai'));
 
 // ✅ PAGE ROUTES
 const pageRoutes = require("./routes/pages");
